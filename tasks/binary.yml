@@ -1,0 +1,17 @@
+---
+
+- name: download argon1.sh
+  ansible.builtin.get_url:
+    url: https://download.argon40.com/argon1.sh
+    dest: /tmp/argon1.sh
+    mode: 0755
+
+- name: execute argon1.sh
+  ansible.builtin.command: /tmp/argon1.sh
+  args:
+    creates: /usr/bin/argonone-config
+
+- name: remove /tmp/argon1.sh
+  ansible.builtin.file:
+    path: /tmp/argon1.sh
+    state: absent

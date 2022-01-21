@@ -1,0 +1,20 @@
+---
+
+galaxy_info:
+  role_name: argonone
+  author: Ondrej Molik
+  description: Argone One fan utility
+  company: infrastructure
+  license: GLWTPL
+  min_ansible_version: 2.10
+
+  galaxy_tags:
+    - rpi         # works on Raspberry Pi (armv7+)
+
+  platforms:
+    - name: Debian 
+      versions:
+        - buster
+        - bullseye
+
+dependencies: []

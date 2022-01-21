@@ -1,0 +1,7 @@
+---
+
+argononed_limits:
+  # temperature:rpm_percentage
+  65: 10
+  70: 60
+  75: 100

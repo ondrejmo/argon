@@ -1,0 +1,32 @@
+---
+
+- name: check argon fan control is present
+  ansible.builtin.command: which argonone-config
+  register: argonone_installed
+  failed_when: no
+  changed_when: no
+
+- name: install argon fan control
+  ansible.builtin.import_tasks: binary.yml
+  when: argonone_installed.rc != 0
+
+- name: change default temp/rpm limits
+  ansible.builtin.template:
+    src: argononed.conf
+    dest: /etc/argononed.conf
+    mode: 0644
+    owner: root
+    group: root
+  notify: restart argononed
+
+# specific for rpi4b
+- name: enable watchdog
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/system.conf
+    regex: "^RuntimeWatchdogSec=.*"
+    line: RuntimeWatchdogSec=10 # TODO: test this
+
+- name: enable argononed
+  ansible.builtin.systemd:
+    name: argononed.service
+    enabled: yes
