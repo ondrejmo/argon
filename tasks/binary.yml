@@ -1,17 +1,23 @@
 ---
 
-- name: download argon1.sh
-  ansible.builtin.get_url:
-    url: https://download.argon40.com/argon1.sh
-    dest: /tmp/argon1.sh
-    mode: 0755
+# name: download argon1.sh
+# ansible.builtin.get_url:
+#   url: https://download.argon40.com/argon1.sh # argoneon.sh
+#   dest: /tmp/argon1.sh
+#   mode: 0755
 
-- name: execute argon1.sh
-  ansible.builtin.command: /tmp/argon1.sh
-  args:
-    creates: /usr/bin/argonone-config
+- name: upload argon.sh
+  ansible.builtin.copy:
+    src: "{{ argon_type }}.sh"
+    dest: /tmp/argon.sh
+    mode: 0700
+    owner: root
+    group: root
 
-- name: remove /tmp/argon1.sh
+- name: execute argon.sh
+  ansible.builtin.command: /tmp/argon.sh
+
+- name: remove /tmp/argon.sh
   ansible.builtin.file:
-    path: /tmp/argon1.sh
+    path: /tmp/argon.sh
     state: absent

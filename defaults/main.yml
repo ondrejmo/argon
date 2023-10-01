@@ -1,7 +1,7 @@
 ---
 
-argononed_limits:
-  # temperature:rpm_percentage
+argon_type: "one" # eon
+argon_limits:
   65: 10
-  70: 60
-  75: 100
+  75: 60
+  80: 100
